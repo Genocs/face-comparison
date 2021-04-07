@@ -132,7 +132,7 @@ namespace Genocs.FaceComparison.Services
             //BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(containerName);
             BlobSasBuilder sasBuilder = new()
             {
-                ExpiresOn = DateTime.UtcNow + (new TimeSpan(24, 0, 0)),
+                ExpiresOn = DateTime.UtcNow + (new TimeSpan(0, 0, 30)),
                 BlobContainerName = containerName,
                 BlobName = blobName,
                 Resource = "b" // Generate the token for a blob

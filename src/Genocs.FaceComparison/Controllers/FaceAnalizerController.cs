@@ -2,7 +2,6 @@
 using Genocs.FaceComparison.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,10 +34,16 @@ namespace Genocs.FaceComparison.Controllers
         public async Task<FaseComparisonResult> PostCompareImages([FromForm(Name = "images")] List<IFormFile> files)
         {
             var uploadResult = await this.storageService.UploadFilesAsync(files);
-            var similarResult = await this.faceReconizerService.FindSimilar(uploadResult.First().URL, uploadResult.Last().URL);
+            IList<Microsoft.Azure.CognitiveServices.Vision.Face.Models.SimilarFace> similarResult = await this.faceReconizerService.FindSimilar(uploadResult.First().URL, uploadResult.Last().URL);
 
-            return await Task.Run(() => new FaseComparisonResult() { Confidence = similarResult.First().Confidence });
+            return await Task.Run(() => {
+                FaseComparisonResult result = new();
+                if (similarResult != null && similarResult.Any())
+                {
+                    result.Confidence = similarResult.OrderByDescending(c => c.Confidence).First().Confidence;
+                }
+                return result;
+            });
         }
     }
-
 }

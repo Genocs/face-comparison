@@ -48,40 +48,41 @@ namespace Genocs.FaceComparison.Services
                                                                         recognitionModel: RecognitionModel.Recognition03,
                                                                         detectionModel: DetectionModel.Detection03);
 
-            _logger.LogInformation($"{detectedFaces.Count} face(s) detected from image `{Path.GetFileName(url)}`");
+            _logger.LogInformation($"{detectedFaces.Count} face(s) detected from image '{url}'");
             return detectedFaces.ToList();
         }
 
         /// <summary>
-        /// FIND SIMILAR
-        /// This example will take an image and find a similar one to it in another image.
+        /// This function will take an image and find a similar one to it in another image.
         /// </summary>
-        /// <param name="client"></param>
-        /// <param name="url"></param>
+        /// <param name="firstImage">The first image</param>
+        /// <param name="secondImage">The second image</param>
         /// <returns></returns>
         public async Task<IList<SimilarFace>> FindSimilar(string firstImage, string secondImage)
         {
-            _logger.LogInformation("========FIND SIMILAR========");
+            // Detect faces from source image url.
+            IList<DetectedFace> sourceFaces = await DetectFaceRecognize(firstImage);
 
-            List<string> targetImageFileNames = new List<string>
-                        {
-                            firstImage
-                        };
+            // Detect faces from target image url.
+            IList<DetectedFace> targetFaces = await DetectFaceRecognize(secondImage);
 
+            // Add detected faceId to list of GUIDs.
             IList<Guid?> targetFaceIds = new List<Guid?>();
-            foreach (var targetImageFileName in targetImageFileNames)
+            foreach (var target in targetFaces)
             {
-                // Detect faces from target image url.
-                var faces = await DetectFaceRecognize(targetImageFileName);
-                // Add detected faceId to list of GUIDs.
-                targetFaceIds.Add(faces[0].FaceId.Value);
+                targetFaceIds.Add(target.FaceId.Value);
             }
 
-            // Detect faces from source image url.
-            IList<DetectedFace> detectedFaces = await DetectFaceRecognize(secondImage);
+            // Find a similar face(s) in the list of IDs. Comaparing only the first in list for testing purposes.
 
-            // Find a similar face(s) in the list of IDs. Comapring only the first in list for testing purposes.
-            return await _client.Face.FindSimilarAsync(detectedFaces[0].FaceId.Value, null, null, targetFaceIds);
+            List<SimilarFace> result = new();
+
+            foreach(var source in sourceFaces)
+            {
+                result.AddRange(await _client.Face.FindSimilarAsync(source.FaceId.Value, null, null, targetFaceIds));
+            }
+
+            return result;
         }
 
     }
