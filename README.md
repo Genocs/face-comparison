@@ -1,12 +1,34 @@
 # face-comparison
-Web Api service with Azure blob storage and Cognitive Services for face comparison.
+Web Api service built with .NET Core 5. It allows to compare two images finding similarity score.
+The service need both a Azure Blob Storage and Cognitive Services account for face comparison. 
 
 ## Azure 
 The project require to have an Azure subscription with
 - Storage account
 - Cognitive Services
 
-## Build docker image
 
+
+## All the variables can be setup using environment variables
+
+
+``` PS
+  "AzureStorageConfig": {
+    "AccountName": "{{accountName}}",
+    "AccountKey": "{{AccountKey}}",
+    "ImageContainer": "{{ImageContainer}}",
+    "ThumbnailContainer": "{{ThumbnailContainer}}"
+  },
+  "AzureCognitiveServicesConfig": {
+    "Endpoint": "{{Endpoint}}",
+    "SubscriptionKey": "{{SubscriptionKey}}"
+  }
+```  
+  
+
+## Docker image
+
+``` PS
 docker build -t genocs/facecomparison -f .\src\Genocs.FaceComparison\Dockerfile .
-docher push genocs/facecomparison
+docker push genocs/facecomparison
+``` 

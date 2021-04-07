@@ -31,7 +31,7 @@ namespace Genocs.FaceComparison
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Genocs.FaceComparison", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Genocs FaceComparison", Version = "v1", Description = "Face comparison service" });
             });
         }
 
