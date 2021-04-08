@@ -43,6 +43,7 @@ namespace Genocs.FaceComparison.Services
             // Create a URI to the blob
 
             string url = $"https://{_storageConfig.AccountName}.blob.core.windows.net/{_storageConfig.ImageContainer}/{fileName}";
+            _logger.LogDebug(url);
             Uri blobUri = new Uri(url);
 
             // Create StorageSharedKeyCredentials object by reading

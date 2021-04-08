@@ -33,6 +33,15 @@ namespace Genocs.FaceComparison
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Genocs FaceComparison", Version = "v1", Description = "Face comparison service" });
             });
+
+            #region Add CORS
+
+            // Setup cors
+            services.AddCors(options => options.AddPolicy("AllowAll", builder =>
+                 builder.AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()));
+            #endregion
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -41,9 +50,13 @@ namespace Genocs.FaceComparison
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Genocs.FaceComparison v1"));
             }
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Genocs FaceComparison v1"));
+
+            // Enable Cors policy
+            app.UseCors("AllowAll");
 
             app.UseRouting();
 
