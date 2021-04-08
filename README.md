@@ -35,7 +35,8 @@ Docker Compose
       - AzureStorageConfig__ThumbnailContainer={{ThumbnailContainer}}      
       - AzureCognitiveServicesConfig__Endpoint={{Endpoint}}
       - AzureCognitiveServicesConfig__SubscriptionKey={{SubscriptionKey}}
-  
+```
+
 ## Docker image
 
 ``` PS
