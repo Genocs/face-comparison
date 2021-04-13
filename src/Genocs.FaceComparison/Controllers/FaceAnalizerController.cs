@@ -36,7 +36,8 @@ namespace Genocs.FaceComparison.Controllers
             var uploadResult = await this.storageService.UploadFilesAsync(files);
             IList<Microsoft.Azure.CognitiveServices.Vision.Face.Models.SimilarFace> similarResult = await this.faceReconizerService.FindSimilar(uploadResult.First().URL, uploadResult.Last().URL);
 
-            return await Task.Run(() => {
+            return await Task.Run(() =>
+            {
                 FaseComparisonResult result = new();
                 if (similarResult != null && similarResult.Any())
                 {
@@ -58,7 +59,7 @@ namespace Genocs.FaceComparison.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<FaseComparisonResult> PostCompareImages([FromQuery] string firstUrl, [FromQuery] string secondUrl)
         {
-            if(string.IsNullOrWhiteSpace(firstUrl))
+            if (string.IsNullOrWhiteSpace(firstUrl))
             {
                 throw new InvalidCastException("'firstUrl' cannot be null or empty");
             }
@@ -70,7 +71,8 @@ namespace Genocs.FaceComparison.Controllers
 
             IList<Microsoft.Azure.CognitiveServices.Vision.Face.Models.SimilarFace> similarResult = await this.faceReconizerService.FindSimilar(firstUrl, secondUrl);
 
-            return await Task.Run(() => {
+            return await Task.Run(() =>
+            {
                 FaseComparisonResult result = new();
                 if (similarResult != null && similarResult.Any())
                 {

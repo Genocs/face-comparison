@@ -5,7 +5,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -77,7 +76,7 @@ namespace Genocs.FaceComparison.Services
 
             List<SimilarFace> result = new();
 
-            foreach(var source in sourceFaces)
+            foreach (var source in sourceFaces)
             {
                 result.AddRange(await _client.Face.FindSimilarAsync(source.FaceId.Value, null, null, targetFaceIds));
             }
