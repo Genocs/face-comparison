@@ -41,5 +41,8 @@ Docker Compose
 
 ``` PS
 docker build -t genocs/facecomparison -f .\src\Genocs.FaceComparison\Dockerfile .
-docker push genocs/facecomparison
+docker tag -t genocs/facecomparison genocs/facecomparison:1.0.1
+
+# Push all tags
+docker push -a genocs/facecomparison
 ```
