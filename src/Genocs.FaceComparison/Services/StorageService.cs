@@ -67,7 +67,7 @@ namespace Genocs.FaceComparison.Services
             List<string> thumbnailUrls = new();
 
             // Create a URI to the storage account
-            Uri accountUri = new Uri("https://" + _storageConfig.AccountName + ".blob.core.windows.net/");
+            Uri accountUri = new Uri($"https://{_storageConfig.AccountName}.blob.core.windows.net/");
 
             // Create BlobServiceClient from the account URI
             BlobServiceClient blobServiceClient = new BlobServiceClient(accountUri);
@@ -79,7 +79,7 @@ namespace Genocs.FaceComparison.Services
             {
                 foreach (BlobItem blobItem in container.GetBlobs())
                 {
-                    thumbnailUrls.Add(container.Uri + "/" + blobItem.Name);
+                    thumbnailUrls.Add($"{container.Uri}/{blobItem.Name}");
                 }
             }
             else

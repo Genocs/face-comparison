@@ -2,6 +2,7 @@
 using Genocs.FaceComparison.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,11 +15,13 @@ namespace Genocs.FaceComparison.Controllers
     [Route("[controller]")]
     public class FaceAnalizerController : ControllerBase
     {
+        private readonly ILogger<FaceAnalizerController> logger;
         private readonly FaceReconizerService faceReconizerService;
         private readonly StorageService storageService;
 
-        public FaceAnalizerController(FaceReconizerService faceReconizerService, StorageService storageService)
+        public FaceAnalizerController(ILogger<FaceAnalizerController> logger, FaceReconizerService faceReconizerService, StorageService storageService)
         {
+            this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
             this.faceReconizerService = faceReconizerService ?? throw new ArgumentNullException(nameof(faceReconizerService));
             this.storageService = storageService ?? throw new ArgumentNullException(nameof(storageService));
         }

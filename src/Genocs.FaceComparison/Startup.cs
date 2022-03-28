@@ -21,6 +21,8 @@ namespace Genocs.FaceComparison
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddApplicationInsightsTelemetry();
+
             services.AddOptions();
             services.Configure<AzureStorageConfig>(Configuration.GetSection("AzureStorageConfig"));
             services.Configure<AzureCognitiveServicesConfig>(Configuration.GetSection("AzureCognitiveServicesConfig"));
