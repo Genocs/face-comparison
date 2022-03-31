@@ -67,15 +67,20 @@ namespace Genocs.FaceComparison.Services
 
             // Add detected faceId to list of GUIDs.
             IList<Guid?> targetFaceIds = new List<Guid?>();
+
+            List<SimilarFace> result = new();
+
+            if (!targetFaces.Any())
+            {
+                return result;
+            }
+
             foreach (var target in targetFaces)
             {
                 targetFaceIds.Add(target.FaceId.Value);
             }
 
             // Find a similar face(s) in the list of IDs. Comaparing only the first in list for testing purposes.
-
-            List<SimilarFace> result = new();
-
             foreach (var source in sourceFaces)
             {
                 result.AddRange(await _client.Face.FindSimilarAsync(source.FaceId.Value, null, null, targetFaceIds));
