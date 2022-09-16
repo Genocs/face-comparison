@@ -38,6 +38,11 @@ public class FaceReconizerService
         // Recognition model 3 was released in 2020 May.
         // It is recommended since its overall accuracy is improved
         // compared with models 1 and 2.
+        // Recognition model 4 was released in 2021 February.
+        // It is recommended since its accuracy is improved
+        // on faces wearing masks compared with model 3,
+        // and its overall accuracy is improved compared
+        // with models 1 and 2.
         IList<DetectedFace> detectedFaces = await _client.Face.DetectWithUrlAsync(url,
                                                                     recognitionModel: RecognitionModel.Recognition04,
                                                                     detectionModel: DetectionModel.Detection03);
@@ -81,7 +86,7 @@ public class FaceReconizerService
         // Find a similar face(s) in the list of IDs. Comaparing only the first in list for testing purposes.
         foreach (var source in sourceFaces)
         {
-            if(source.FaceId != null)
+            if (source.FaceId != null)
             {
                 result.AddRange(await _client.Face.FindSimilarAsync(source.FaceId.Value, null, null, targetFaceIds));
             }
