@@ -2,15 +2,8 @@
 using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
 using Azure.Storage.Sas;
-using Genocs.FaceComparison.Options;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Logging;
+using Genocs.FaceComparison.WebApi.Options;
 using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Genocs.FaceComparison.Services
 {
@@ -159,7 +152,7 @@ namespace Genocs.FaceComparison.Services
 
     public class UploadedItem
     {
-        public string FileName { get; set; }
-        public string URL { get; set; }
+        public string FileName { get; set; } = default!;
+        public string URL { get; set; } = string.Empty;
     }
 }

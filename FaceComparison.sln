@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31129.286
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Genocs.FaceComparison", "src\Genocs.FaceComparison\Genocs.FaceComparison.csproj", "{E9E095E6-F3B5-4533-B97B-F2BC811456D4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FaceComparison", "src\Genocs.FaceComparison.WebApi\Genocs.FaceComparison.WebApi.csproj", "{E9E095E6-F3B5-4533-B97B-F2BC811456D4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
